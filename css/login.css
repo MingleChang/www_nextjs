@@ -1,0 +1,26 @@
+#login_root_id {
+    width: 100vw;
+    height: 100vh;
+}
+
+#login_left_id {
+    height: 100%;
+}
+
+#login_right_id {
+    height: 100%;
+}
+
+#login_image_bg_id {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+#login_right_box_id {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}

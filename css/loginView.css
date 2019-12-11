@@ -1,0 +1,21 @@
+#login_view_box_id {
+    max-width: 80%;
+    width: 300px;
+    padding: 30px;
+}
+#login_sign_in_id, #login_sign_up_id{
+    width: 100%;
+    margin-bottom: 10px;
+}
+#login_sign_in_wrapper_id {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+#login_loading_id {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -15px;
+    margin-left: -12px;
+}

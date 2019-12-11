@@ -1,0 +1,12 @@
+#navigation_root_id {
+    flex-grow: 1;
+}
+#navigation_menu_button_id {
+    margin-right: 0rem;
+}
+#navigation_title_id {
+    flex-grow: 1;
+}
+#navigation_side_id {
+    width: 250px;
+}

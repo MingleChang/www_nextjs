@@ -1,0 +1,12 @@
+#app_detail_progress_id {
+    margin: 0 auto;
+}
+#app_detail_box_id {
+    width: 100%;
+    display: flex;
+    padding-top: 20px;
+}
+#app_detail_content_id {
+    margin: 0 auto;
+    text-align: center;
+}
