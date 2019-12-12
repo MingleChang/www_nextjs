@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import styles from '../css/loginView.css'
-import { loginAPI } from '../api/user'
+import { LoginAPI } from '../api/user'
 
 export default class LoginView extends React.Component {
     constructor(props) {
@@ -47,7 +47,7 @@ export default class LoginView extends React.Component {
         this.setState({passwordError: false, passwordHelper: ''})
         this.setState({siginLoading: true})
         try {
-            let response = await loginAPI(account, password)
+            let response = await LoginAPI(account, password)
             this.setState({siginLoading: false})
             localStorage.setItem('user', JSON.stringify(response))
             location.href = '/'

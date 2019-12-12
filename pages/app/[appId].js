@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
-
+import Snackbar from '@material-ui/core/Snackbar'
 
 import Navigation from '../../components/navigation'
 
@@ -16,18 +16,17 @@ import styles from '../../css/app/appId.css'
 export default class AppId extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {app: null, loading: true}
+    this.state = {app: null, loading: true, messageOpen: false, message: ''}
   }
-  componentDidUpdate(preProps) {
-    if (this.props.url.query.appId == preProps.url.query.appId) {
-      return
-    }
-    GetAppInfoAPI(this.props.url.query.appId)
+  static async getInitialProps(ctx) {
+    return ctx.query
+  }
+  componentDidMount() {
+    GetAppInfoAPI(this.props.appId)
     .then((response) => {
       this.setState({app: response, loading: false})
     }).catch((error) => {
-      this.setState({loading: false})
-      console.log(error)
+      this.setState({loading: false, messageOpen: true, message: error.message})
     })
   }
   
@@ -45,6 +44,10 @@ export default class AppId extends React.Component {
     }else {
       location.href='https://api.minglechang.com/app/download/' + this.state.app.id
     }
+  }
+
+  handleSnackbarClose = () => {
+    this.setState({messageOpen: false, message: ''})
   }
 
   render() {
@@ -69,6 +72,16 @@ export default class AppId extends React.Component {
           onClick={this.handlerDownload}>下载</Button>
           </Box>
           }</Box>
+          <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center'
+          }}
+          open={this.state.messageOpen}
+          autoHideDuration={4000}
+          onClose={this.handleSnackbarClose}
+          message={this.state.message}
+          ></Snackbar>
         </Container>
       </div>
     )

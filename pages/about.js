@@ -1,6 +1,8 @@
 import React from 'react'
 import Head from 'next/head'
 
+import Navigation from '../components/navigation'
+
 export default class About extends React.Component {
     render() {
         return (
@@ -9,7 +11,8 @@ export default class About extends React.Component {
                     <title>About</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
-                <h1>About</h1>
+                
+                <Navigation title='About'></Navigation>
             </div>
         )
     }

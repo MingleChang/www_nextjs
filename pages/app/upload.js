@@ -13,7 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Snackbar from '@material-ui/core/Snackbar'
 
 import Navigation from '../../components/navigation'
-import { UploadApp } from '../../api/app'
+import { UploadAppAPI } from '../../api/app'
 
 import styles from '../../css/app/upload.css'
 
@@ -58,10 +58,9 @@ export default class AppUpload extends React.Component {
       this.setState({environmentError: true})
       return
     }
-    console.log('start')
     this.setState({uploading: true})
     try {
-      let response = await UploadApp(this.state.file, this.state.platform, this.state.environment)
+      let response = await UploadAppAPI(this.state.file, this.state.platform, this.state.environment)
       location.href = '/app/' + response.id
       this.setState({uploading: false})
     } catch (error) {

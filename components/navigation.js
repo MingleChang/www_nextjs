@@ -102,7 +102,7 @@ export default class Navigation extends React.Component {
         if (this.state.user == null) {
             userHtml = (
                 <Button color="inherit" onClick={this.handlerSignIn}>
-                    <div>SignIn / SignUp</div>
+                    <Typography variant='body2'>SignIn / SignUp</Typography>
                 </Button>
             )
         }else {
