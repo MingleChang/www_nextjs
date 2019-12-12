@@ -6,7 +6,7 @@ const body = require('koa-body')
 
 const port = parseInt(process.env.PORT) || 8000
 const env = process.env.NODE_ENV !== 'production'
-const app = next({env})
+const app = next({dev:env, dir:__dirname})
 const handler = app.getRequestHandler()
 
 const apiRouter = require('./routes/index')
