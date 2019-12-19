@@ -18,7 +18,6 @@ import Navigation from '../components/navigation'
 import { GetPackageIdsAPI, GetPlatformsAPI, GetEnvironmentsAPI, GetVersionsAPI, GetAppListAPI } from '../api/app'
 
 import styles from '../css/app.css'
-import { version } from 'punycode'
 
 export default class Application extends React.Component {
   constructor(props) {

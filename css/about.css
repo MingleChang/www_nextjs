@@ -1,0 +1,8 @@
+
+#about_content_id {
+    overflow: scroll;
+    width: 500px;
+}
+#about_view_id {
+    overflow: hidden;
+}

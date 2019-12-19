@@ -1,4 +1,7 @@
 
+// const host = 'https://api.minglechang.com'
+const host = 'http://127.0.0.1:9000'
+
 function queryString(query) {
     let array = []
     for (let key in query) {
@@ -11,11 +14,15 @@ function queryString(query) {
 }
 
 function urlWithQuery(url, query) {
+    var address = url
+    if(url.indexOf('http://')==-1 && url.indexOf('https://')==-1) {
+        address = host + url;
+    }
     let string = queryString(query)
     if (url.indexOf('?') >= 0) {
-        return url + '&' + string
+        return address + '&' + string
     }else {
-        return url + '?' + string
+        return address + '?' + string
     }
 }
 
@@ -64,10 +71,25 @@ function checkError(error) {
     return error
 }
 
+function getLocationToken() {
+    try {
+        let user = JSON.parse(localStorage.getItem('user'))
+        let token = user.token
+        return token
+    }catch (error) {
+        return ""
+    }
+}
+
 function GET(url, query) {
     return new Promise((resolve, reject) => {
         let urlString = urlWithQuery(url, query)
-        fetch(urlString)
+        fetch(urlString, {
+            method: 'GET',
+            headers: {
+                token: getLocationToken()
+            }
+        })
         .then(checkStatus)
         .then(parseJSON)
         .then((response) => {
@@ -80,7 +102,6 @@ function GET(url, query) {
 }
 
 function POST(url, query, params) {
-    
     return new Promise((resolve, reject) => {
         let urlString = urlWithQuery(url, query)
         let formDate = formDataFromParams(params)
@@ -88,7 +109,7 @@ function POST(url, query, params) {
             method: 'POST',
             body: formDate,
             headers: {
-                token: ''
+                token: getLocationToken()
             }
         })
         .then(checkStatus)
