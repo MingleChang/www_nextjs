@@ -1,6 +1,6 @@
 
-// const host = 'https://api.minglechang.com'
-const host = 'http://127.0.0.1:9000'
+const host = 'https://api.minglechang.com'
+// const host = 'http://127.0.0.1:9000'
 
 function queryString(query) {
     let array = []
