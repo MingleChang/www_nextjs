@@ -19,12 +19,35 @@ import MenuIcon from '@material-ui/icons/Menu'
 import HomeIcon from '@material-ui/icons/Home'
 import AppsIcon from '@material-ui/icons/Apps'
 import AboutIcon from '@material-ui/icons/Info'
+import GestureIcon from '@material-ui/icons/Gesture'
 
 import styles from '../css/navigation.css'
 
 export default class Navigation extends React.Component {
     constructor(props) {
         super(props)
+        this.adminSideData = [
+            [{
+                icon: <HomeIcon/>,
+                name: 'Home',
+                path: '/'
+            },
+            {
+                icon: <AppsIcon/>,
+                name: 'Application',
+                path: '/app'
+            },
+            {
+                icon: <GestureIcon/>,
+                name: 'Guess',
+                path: '/guess'
+            }],
+            [{
+                icon: <AboutIcon/>,
+                name: 'About',
+                path: '/about'
+            }]
+        ]
         this.sideData = [
             [{
                 icon: <HomeIcon/>,
@@ -42,12 +65,15 @@ export default class Navigation extends React.Component {
                 path: '/about'
             }]
         ]
-        this.state = {user: null, drawerOpen: false, userMenuTarget: null}
+        this.state = {user: null, drawerOpen: false, userMenuTarget: null, sideData: this.sideData}
     }
     
     componentDidMount() {
         let user = JSON.parse(localStorage.getItem('user'))
         this.setState({user: user})
+        if (user && user.admin) {
+            this.setState({sideData: this.adminSideData})
+        }
     }
 
     //点击侧边菜单按钮
@@ -75,13 +101,14 @@ export default class Navigation extends React.Component {
     }
     handleSignOut = () => {
         localStorage.removeItem('user')
-        this.setState({user: null})
+        window.location.reload()
+        // this.setState({user: null, sideData: this.sideData})
     }
 
     render() {
         let sideHtml = (
             <div id={`${styles.navigation_side_id}`}>
-            {this.sideData.map((array, index) => (
+            {this.state.sideData.map((array, index) => (
                 <div key={index}>
                 <List>
                     {array.map((model, index) => (
