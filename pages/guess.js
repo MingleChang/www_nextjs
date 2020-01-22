@@ -17,6 +17,7 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import Backdrop from '@material-ui/core/Backdrop'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Snackbar from '@material-ui/core/Snackbar'
 
 import DeleteIcon from '@material-ui/icons/Delete'
 
@@ -48,6 +49,9 @@ export default function Guess(props) {
 
     const [loading, setLoading] = React.useState(false)
 
+    const [toasting, setToasting] = React.useState(false)
+    const [toast, setToast] = React.useState("")
+
     React.useEffect(() => {
         let user = JSON.parse(localStorage.getItem('user'))
         let admin = false
@@ -62,6 +66,11 @@ export default function Guess(props) {
         reuqestLanguages()
         requestList(sWord, sCategory, sLanguage)
     }, [])
+
+    function showToast(message) {
+        setToast(message)
+        setToasting(true)
+    }
 
     function handleChangePage(event, newPage) {
         requestList(sWord, sCategory, sLanguage, newPage, result.size)
@@ -123,6 +132,10 @@ export default function Guess(props) {
         setDialogCategory("")
         setDialogLanguage("")
     }
+    function handleToastClose() {
+        setToast("")
+        setToasting(false)
+    }
     async function requestCategories() {
         try {
             let lCategories = await GuessCategoriesAPI()
@@ -148,6 +161,7 @@ export default function Guess(props) {
             setLoading(false)
         } catch (error) {
             setLoading(false)
+            showToast(error.message)
         }
     }
     async function requestDelete(word, language) {
@@ -158,6 +172,7 @@ export default function Guess(props) {
             setLoading(false)
         } catch (error) {
             setLoading(false)
+            showToast(error.message)
         }
     }
     async function requestCreate(word, category, language) {
@@ -168,6 +183,7 @@ export default function Guess(props) {
             setLoading(false)
         } catch (error) {
             setLoading(false)
+            showToast(error.message)
         }
     }
     return (
@@ -317,8 +333,18 @@ export default function Guess(props) {
                 </DialogActions>
             </Dialog>
             <Backdrop open={loading}>
-        <CircularProgress color="secondary" />
-      </Backdrop>
+                <CircularProgress color="secondary" />
+            </Backdrop>
+            <Snackbar
+            anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center'
+              }}
+              open={toasting}
+              autoHideDuration={4000}
+              onClose={handleToastClose}
+              message={toast}
+            ></Snackbar>
         </div>
     )
 }
